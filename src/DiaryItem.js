@@ -46,14 +46,14 @@ return <div className="DiaryItem">
         </span>
     </div>
     <div className="content">
-        {isEdit ? (<>
+        {isEdit ? (
         <textarea 
         ref = {localContentInput} 
         value = {localContent} 
         onChange = {(e) => setLocalContent(e.target.value)}
         >
         </textarea>
-        </>) : (<>content</>)}    
+        ) : (content)}    
     </div>
 
     {isEdit ? (
