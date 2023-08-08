@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
+import RouteTest from "./compoenets/RouteTest";
 
 
 
@@ -19,8 +20,9 @@ function App() {
           <Route path='/' element={<Home></Home>}></Route>
           <Route path='/new' element={<New></New>}></Route>
           <Route path='/edit' element={<Edit></Edit>}></Route>
-          <Route path='/diary' element={ <Diary></Diary>}></Route>
+          <Route path='/diary/:id' element={ <Diary></Diary>}></Route>
         </Routes>
+        <RouteTest></RouteTest>
       </div>
     </BrowserRouter>
   );
