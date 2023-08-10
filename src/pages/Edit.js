@@ -2,7 +2,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 
 const Edit = () => {
 
-    const navigete = useNavigate();
+    const navigate = useNavigate();
 
     const [searchParams,setSearchParams] = useSearchParams();
 
@@ -20,13 +20,14 @@ const Edit = () => {
         </button>
 
         <button onClick={()=>{
-            navigete("/home");
+            navigate("/home");
         }}>
             Home으로 가기
         </button>
 
         <button onClick={()=>{
-            navigete(-1);
+            navigate(-1);
+            navigate(-1);
         }}>
             뒤로가기
         </button>
