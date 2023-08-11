@@ -5,38 +5,89 @@ import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
 import RouteTest from "./compoenets/RouteTest";
-import MyButton from "./compoenets/MyButton";
-import MyHeader from "./compoenets/MyHeader";
+import React,{useReducer, useRef} from "react";
 
+const reducer = (state, action) => {
+  let newState = [];
+  switch (action.type){
+    case  'INIT' : {
+      return action.type;
+    }
+    case 'CREATE' : {
+      const newItem = {
+        ...action.data
+      };
+      newState = [newItem, ...state];
+      break;
+    }
+    case 'REMOVE' : {
+      newState = state.filter((it) => it.id !== action.targetId );
+      break;
+    }
+    case 'EDIT' : {
+      newState = state.map((it) =>
+      it.id === action.data.id ? {...action.data} : it )
+      break;
+    }
+  default :
+      return state;
+  }
+  return newState;
+}
 
-
-
-
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 function App() {
+
+  const [data,dispatch] = useReducer(reducer,[])
+  const dataId = useRef(0);
+
+   const onCreate = (date,content,emotion) => {
+     dispatch({
+       type: 'CREATE',
+       data : {
+         id : dataId.current,
+         date : new Date(date).getTime(),
+         content,
+         emotion,
+       }
+     });
+     dataId.current += 1;
+   };
+   const onRemove = (targetId) => {
+     dispatch({type : "REMOVE",targetId});
+   };
+   const onEdit = (targetId, date, content, emotion) => {
+     dispatch({
+       type : "EDIT",
+       data : {
+         id : targetId,
+         date : new Date(date).getTime(),
+         content,
+         emotion,
+       },
+     });
+   };
+
+
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <MyHeader headText={"App"}
-        leftChild={<MyButton text={'왼쪽버튼'} onClick={() => alert("왼쪽 클릭")} />}
-        rightChild={<MyButton text={'오른쪽 버튼'} onClick={() => alert("오른쪽클릭")}/>}
-        ></MyHeader>
-        <h2>App.js</h2>
-        <MyButton text={'버튼'} onClick={() => alert('버튼클릭')}
-                  type={"positive"}></MyButton>
-        <MyButton text={'버튼'} onClick={() => alert('버튼클릭')}
-                  type={"negative"}></MyButton>
-        <MyButton text={'버튼'} onClick={() => alert('버튼클릭')}
-                  ></MyButton>
-        <Routes>
-          <Route path='/' element={<Home></Home>}></Route>
-          <Route path='/new' element={<New></New>}></Route>
-          <Route path='/edit' element={<Edit></Edit>}></Route>
-          <Route path='/diary/:id' element={ <Diary></Diary>}></Route>
-        </Routes>
-        <RouteTest></RouteTest>
-      </div>
-    </BrowserRouter>
+   <DiaryStateContext.Provider value={data}>
+    <DiaryDispatchContext.Provider value={{onCreate,onEdit,onRemove}}>
+      <BrowserRouter>
+        <div className="App">
+          <Routes>
+            <Route path='/' element={<Home></Home>}></Route>
+            <Route path='/new' element={<New></New>}></Route>
+            <Route path='/edit' element={<Edit></Edit>}></Route>
+            <Route path='/diary/:id' element={ <Diary></Diary>}></Route>
+          </Routes>
+          <RouteTest></RouteTest>
+        </div>
+      </BrowserRouter>
+    </DiaryDispatchContext.Provider>
+  </DiaryStateContext.Provider>
   );
 }
 
