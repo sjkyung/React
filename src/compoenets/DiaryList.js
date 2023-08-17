@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import MyButton from "./MyButton";
+import DiaryItem from "./DiaryItem";
 
 
 const sortOptionList = [
@@ -16,7 +17,7 @@ const filterOptionList = [
 
 const ControlMenu = ({value,onChange,optionList}) => {
     return (
-    <select vlaue={value} onChange={(e) => onChange(e.target.value)}>
+    <select className="ControlMenu" vlaue={value} onChange={(e) => onChange(e.target.value)}>
         {optionList.map((it, idx) => (
             <option key={idx} value={it.value}>
                 {it.name}
@@ -63,19 +64,20 @@ const DiaryList = ({diaryList}) => {
         
         <div className="DiaryList">
             <div className="menu_wrapper">
-                <div className=""></div>
+            <div className="left_col">
+                <ControlMenu vlaue={sortType} onChange={setSortType} 
+                optionList={sortOptionList}></ControlMenu>
+                <ControlMenu vlaue={filter} onChange={setFilter}
+                optionList={filterOptionList}></ControlMenu>
             </div>
-
-
-            <ControlMenu vlaue={sortType} onChange={setSortType} 
-            optionList={sortOptionList}></ControlMenu>
-            <ControlMenu vlaue={filter} onChange={setFilter}
-            optionList={filterOptionList}></ControlMenu>
-            <MyButton type={'positive'} text={"새 일기 쓰기"}
-            onClick={() => navigete("/new")}></MyButton>
-                {getProcessesdDiaryList().map((it) => (
-                    <div key ={it.id}>{it.content}</div> 
-                ))}
+            <div className="right_col">
+                <MyButton type={'positive'} text={"새 일기 쓰기"}
+                onClick={() => navigete("/new")}></MyButton>
+            </div>
+            </div>
+            {getProcessesdDiaryList().map((it) => (
+                        <DiaryItem key ={it.id} {...it}></DiaryItem> 
+                    ))}
         </div>
     )
 }
