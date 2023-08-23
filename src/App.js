@@ -42,7 +42,7 @@ const dummyData = [
   {
     id : 1,
     emotion :1 ,
-    content :"오늘이 일기 1번",
+    content :"오늘이 일기 3번",
     date : 1691975106567,
   },
   {
@@ -54,7 +54,7 @@ const dummyData = [
   {
     id : 3,
     emotion : 3,
-    content :"오늘이 일기 3번",
+    content :"오늘이 일기 1번",
     date : 1691975106569,
   }
 ]
