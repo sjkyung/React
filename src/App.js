@@ -42,7 +42,7 @@ const dummyData = [
   {
     id : 1,
     emotion :1 ,
-    content :"오늘이 일기 3번",
+    content :"오늘이 일기 1번",
     date : 1691975106567,
   },
   {
@@ -54,8 +54,20 @@ const dummyData = [
   {
     id : 3,
     emotion : 3,
-    content :"오늘이 일기 1번",
+    content :"오늘이 일기 3번",
     date : 1691975106569,
+  },
+  {
+    id : 4,
+    emotion : 4,
+    content :"오늘이 일기 4번",
+    date : 1691975106570,
+  },
+  {
+    id : 5,
+    emotion : 5,
+    content :"오늘이 일기 5번",
+    date : 1691975106571,
   }
 ]
 
@@ -104,7 +116,7 @@ function App() {
             <Route path='/edit' element={<Edit></Edit>}></Route>
             <Route path='/diary/:id' element={ <Diary></Diary>}></Route>
           </Routes>
-          <RouteTest></RouteTest>
+          {/* <RouteTest></RouteTest> */}
         </div>
       </BrowserRouter>
     </DiaryDispatchContext.Provider>
