@@ -8,11 +8,6 @@ import { getStringDate } from "../util/date";
 import { emotionList } from "../util/emotion"; 
 
 
-
-
-
-
-
 const DiaryEditor = ({isEdit,originData}) => {
     
     const contentRef = useRef();
